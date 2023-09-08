@@ -11,5 +11,10 @@
 }
 
 .nav {
-    @apply flex flex-wrap items-center justify-between mx-auto p-4 text-sm;
+    @apply flex flex-wrap items-center justify-between mx-auto px-4 text-sm ;
+}
+
+.main-error {
+    @apply flex flex-col  h-full justify-center items-center bg-secondry text-white mx-20 py-6;
+    font-family: Trebuchet MS;
 }
