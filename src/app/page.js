@@ -20,9 +20,12 @@ export default function Home() {
         <Link href="#">Start free</Link>
       </section>
       <section key="section-2" className="section-2">
-        <p>Sharper, Crisper, and More Vibrant: AI Super Resolutions Redefine Visual Quality</p>
-        <Image src={exampleSuperResolution} alt="example-super-resolution"/>
-        <ul>
+        <p className="text-lg">Sharper, Crisper, and More Vibrant: AI Super Resolutions Redefine Visual Quality</p>
+        <Image 
+        src={exampleSuperResolution} 
+        alt="example-super-resolution"
+        className="w-2/3 py-9 pl-48"/>
+        <ul className="list-disc text-sm flex flex-row justify-between px-12">
           <li>Upscale pics with AI</li>
           <li>Fix pixelation and blur</li>
           <li>Correct colors and lighting</li>

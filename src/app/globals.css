@@ -32,7 +32,7 @@
 }
 
 .section-2 {
-    @apply bg-secondry font-mono;
+    @apply bg-secondry font-mono text-white p-12;
 }
 
 .section-3 {
