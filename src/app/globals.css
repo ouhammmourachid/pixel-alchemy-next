@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.my-link {
+    @apply mr-4 font-semibold hover:underline font-mono text-white hover:text-blue-500;
+}
+
+.button-header {
+    @apply text-white font-medium px-4 rounded-xl py-2 mx-2 focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 ;
+}
+
+.nav {
+    @apply flex flex-wrap items-center justify-between mx-auto px-4 text-sm ;
+}
+
+.main-error {
+    @apply flex flex-col  h-full justify-center items-center bg-secondry text-white mx-20 py-6;
+    font-family: Trebuchet MS;
+}

@@ -6,6 +6,7 @@ import exampleStylization from '/public/images-stylization.png';
 export default function Home() {
   return (
     <main >
+
       <section key="section-1">
         
       </section>
