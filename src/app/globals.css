@@ -38,3 +38,7 @@
 .section-3 {
     @apply font-mono p-12 flex flex-row text-white selection:bg-pink-600;
 }
+
+.post {
+    @apply relative text-white font-mono mx-16 mb-16;
+}

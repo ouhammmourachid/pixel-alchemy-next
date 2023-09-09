@@ -16,7 +16,7 @@ export default function Header(){
         <div className='flex '>
             <div className='flex justify-center mt-2'>
                 <Link href='#' className='my-link'>Solutions</Link>
-                <Link href='#' className='my-link'>Post</Link>
+                <Link href='/post' className='my-link'>Post</Link>
             </div>
             <div className='flex items-center'>
                 <button className='button-header bg-purple' >Create account</button>
