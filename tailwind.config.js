@@ -16,6 +16,7 @@ module.exports = {
         primary: '#2F2E41',
         secondry: '#4F4C6B',
         purple: '#5843E4',
+        third: '#A4A6AA',
       },
     },
   },

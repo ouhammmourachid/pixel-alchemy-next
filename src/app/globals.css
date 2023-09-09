@@ -28,7 +28,7 @@
 }
 
 .section-1 {
-    @apply font-mono;
+    @apply font-mono text-white px-12 relative h-screen;
 }
 
 .section-2 {
