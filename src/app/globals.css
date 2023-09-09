@@ -18,3 +18,23 @@
     @apply flex flex-col  h-full justify-center items-center bg-secondry text-white mx-20 py-6;
     font-family: Trebuchet MS;
 }
+
+.footer {
+    @apply bg-secondry text-white font-mono flex justify-between p-6;
+}
+
+.footer-link {
+    @apply hover:underline font-mono text-white hover:text-blue-500;
+}
+
+.section-1 {
+    @apply font-mono text-white px-12 relative h-screen;
+}
+
+.section-2 {
+    @apply bg-secondry font-mono text-white p-12;
+}
+
+.section-3 {
+    @apply font-mono p-12 flex flex-row text-white selection:bg-pink-600;
+}
