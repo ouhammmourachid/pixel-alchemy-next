@@ -26,7 +26,7 @@ export default function Home() {
         <Image 
         src={exampleSuperResolution} 
         alt="example-super-resolution"
-        className="w-2/3 py-9 pl-48"/>
+        className="w-2/3 py-9 pl-64"/>
         <ul className="list-disc text-sm flex flex-row justify-between px-12">
           <li>Upscale pics with AI</li>
           <li>Fix pixelation and blur</li>
