@@ -1,7 +1,11 @@
+"use client"
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Favicon from '/public/favicon.ico'
 import Header from '../components/Header'
+import SignInModal from '@/components/SignInModel'
+import SignUpModal from '@/components/SignUpModel'
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,12 +16,18 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const [showSignUp,setShowSignUp] =useState(false);
+  const [showSignIn,setShowSignIn] =useState(false);
   return (
     <html lang="en" className='bg-primary'>
       <body className={inter.className}>
-        <Header />
+        <Header 
+          setShowSignIn={setShowSignIn}
+          setShowSignUp={setShowSignUp}/>
         {children}
-        </body>
+        <SignUpModal visible={showSignUp} setShowModel={setShowSignUp}/>
+        <SignInModal visible={showSignIn} setShowModel={setShowSignIn} />
+      </body>
     </html>
   )
 }
