@@ -38,3 +38,23 @@
 .section-3 {
     @apply font-mono p-12 flex flex-row text-white selection:bg-pink-600;
 }
+
+.post {
+    @apply relative text-white font-mono mx-16 mb-16;
+}
+
+.solution {
+    @apply bg-secondry text-white font-mono mb-6 mx-52 py-3 pl-6 rounded-xl flex justify-between;
+}
+
+.posted-image {
+    @apply bg-secondry text-white mx-32 flex flex-row;
+}
+
+.post-comment {
+    @apply mx-32 flex justify-center my-16 font-mono;
+}
+
+.comment {
+    @apply mx-32 text-white font-mono mb-12 border-b-2 pb-6 border-secondry;
+}
