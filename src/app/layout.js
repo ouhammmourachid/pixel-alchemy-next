@@ -5,7 +5,9 @@ import Favicon from '/public/favicon.ico'
 import Header from '../components/Header'
 import SignInModal from '@/components/SignInModel'
 import SignUpModal from '@/components/SignUpModel'
-import { useState } from 'react'
+import SplashScreen from '@/components/SplashScreen'
+import {usePathname} from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,15 +20,28 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const [showSignUp,setShowSignUp] =useState(false);
   const [showSignIn,setShowSignIn] =useState(false);
+  const pathname = usePathname();
+  const isHome = pathname == '/';
+  const [isLoading, setIsLoading] = useState(isHome);
+  useEffect(()=>{
+    if (isLoading) return
+  },[]);
+
   return (
     <html lang="en" className='bg-primary'>
       <body className={inter.className}>
-        <Header 
+        {isLoading && isHome ?
+        (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
+        (
+          <>
+          <Header 
           setShowSignIn={setShowSignIn}
           setShowSignUp={setShowSignUp}/>
-        {children}
-        <SignUpModal visible={showSignUp} setShowModel={setShowSignUp}/>
-        <SignInModal visible={showSignIn} setShowModel={setShowSignIn} />
+          {children}
+          <SignUpModal visible={showSignUp} setShowModel={setShowSignUp}/>
+          <SignInModal visible={showSignIn} setShowModel={setShowSignIn} />
+          </>
+        )}
       </body>
     </html>
   )
