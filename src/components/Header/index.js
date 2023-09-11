@@ -1,8 +1,25 @@
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React,{useRef,useState,useEffect} from 'react';
 
-export default function Header(){
+export default function Header({setShowSignIn,setShowSignUp}){
+    const logedIn = true;
+    const [showMenu,setShowMenu] = useState(false);
+    let menuRef = useRef();
+
+    useEffect(() => {
+        let handler = (e)=>{
+        if(menuRef.current && !menuRef.current.contains(e.target)){
+            setShowMenu(false);
+            console.log(menuRef.current);
+        }      
+        };
+        document.addEventListener("mousedown", handler);
+        return() =>{
+        document.removeEventListener("mousedown", handler);
+        }
+    });
     return(
     <nav className='nav'>
         <Link href='/'>
@@ -19,9 +36,9 @@ export default function Header(){
                 <Link href='/post' className='my-link'>Post</Link>
             </div>
             <div className='flex items-center'>
-                <button className='button-header bg-purple' >Create account</button>
+                <button className='button-header bg-purple' onClick={()=>setShowSignUp(true)}>Create account</button>
                 <br/>
-                <button className='button-header bg-secondry border border-purple' >Login</button>
+                <button className='button-header bg-secondry border border-purple' onClick={()=>setShowSignIn(true)}>Login</button>
             </div>
         </div>
     </nav>

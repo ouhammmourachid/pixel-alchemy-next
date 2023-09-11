@@ -3,6 +3,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Favicon from '/public/favicon.ico'
 import Header from '../components/Header'
+import SignInModal from '@/components/SignInModel'
+import SignUpModal from '@/components/SignUpModel'
 import SplashScreen from '@/components/SplashScreen'
 import {usePathname} from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -16,6 +18,8 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const [showSignUp,setShowSignUp] =useState(false);
+  const [showSignIn,setShowSignIn] =useState(false);
   const pathname = usePathname();
   const isHome = pathname == '/';
   const [isLoading, setIsLoading] = useState(isHome);
@@ -30,11 +34,15 @@ export default function RootLayout({ children }) {
         (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
         (
           <>
-          <Header />
+          <Header 
+          setShowSignIn={setShowSignIn}
+          setShowSignUp={setShowSignUp}/>
           {children}
+          <SignUpModal visible={showSignUp} setShowModel={setShowSignUp}/>
+          <SignInModal visible={showSignIn} setShowModel={setShowSignIn} />
           </>
         )}
-        </body>
+      </body>
     </html>
   )
 }
