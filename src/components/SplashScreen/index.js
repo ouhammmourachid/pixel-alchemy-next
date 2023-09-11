@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import anime from "animejs"
 import eqlipse from '/public/eqlipse-simple.svg'
+import logoLight from '/public/logo-light.svg'
 
 export default function SplashScreen({finshLoading}) {
     const [isMounted, setIsMounted] = useState(false)
@@ -40,13 +41,21 @@ export default function SplashScreen({finshLoading}) {
         })
     }
     useEffect(()=>{
-        const timeout = setTimeout(()=> setIsMounted(true),10)
+        const timeout = setTimeout(()=> setIsMounted(true),1)
         animate()
         return  () => clearTimeout(timeout)
     },[])
     return (
-        <div className="flex items-center justify-center h-screen">
-            <Image src={eqlipse} alt="eqlipse-ils" id="logo" />
+        <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center">
+            <Image 
+            src={eqlipse} 
+            alt="eqlipse-ils" 
+            id="logo" 
+            className=""/>
+            <Image 
+            src={logoLight} 
+            alt="logo-light"
+            className="absolute mt-9 mr-6"/>
         </div>
         )
 }
