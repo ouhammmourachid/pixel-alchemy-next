@@ -7,10 +7,12 @@ import BASE_URL from '@/constants';
 import vector from '/public/vector.svg';
 import { LogedIn } from '@/contexts/LogedInContext';
 import { UserId } from '@/contexts/UserIdContext';
+import { ShowSignIn } from '@/contexts/ShowSignInContext';
 
-export default function Header({setShowSignIn,setShowSignUp}){
+export default function Header({setShowSignUp}){
     const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
     const {userId,setUserId} = useContext(UserId);
+    const {showSignIn,setShowSignIn} = useContext(ShowSignIn);
     const logedIn = true;
     const [showMenu,setShowMenu] = useState(false);
     const [userData,setUserData] = useState(null);

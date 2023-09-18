@@ -11,6 +11,7 @@ export default function SignUpModal({visible,setShowModel}){
         name:''
     });
     const [error, setError] = useState('');
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     // Handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -33,6 +34,7 @@ export default function SignUpModal({visible,setShowModel}){
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError('');
+        setShowSuccessMessage(false);
         try {
             const response = await fetch(`${BASE_URL}/api/register`, {
               method: 'POST',
@@ -43,6 +45,7 @@ export default function SignUpModal({visible,setShowModel}){
             });
             if (response.ok) {
               const data = await response.json();
+              setShowSuccessMessage(true)
             } else {
                 setError('Registration failed try an other email.');
             }
@@ -56,6 +59,7 @@ export default function SignUpModal({visible,setShowModel}){
             if(signUp.current &&!signUp.current.contains(e.target)){
                 setShowModel(false);
                 setError('');
+                setShowSuccessMessage(false)
             }
         };
         document.addEventListener("mousedown",handler);
@@ -74,6 +78,14 @@ export default function SignUpModal({visible,setShowModel}){
                         <strong className="font-bold">SignUp Failed:</strong>
                         <span className="block sm:inline">{error}</span>
                     {error}
+                    </div>
+                }
+                {showSuccessMessage &&
+                    <div className="bg-green-400 text-white px-4 py-2 rounded-md">
+                        <svg className="h-6 w-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Congratulations! Your account has been successfully created.
                     </div>
                 }
                 <div>

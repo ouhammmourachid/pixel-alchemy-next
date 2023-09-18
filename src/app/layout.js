@@ -10,6 +10,7 @@ import {usePathname} from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { LogedInProvider } from '@/contexts/LogedInContext'
 import { UserIdProvider } from '@/contexts/UserIdContext'
+import { ShowSignInProvider } from '@/contexts/ShowSignInContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,6 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const [showSignUp,setShowSignUp] =useState(false);
-  const [showSignIn,setShowSignIn] =useState(false);
   const pathname = usePathname();
   const isHome = pathname == '/';
   const [isLoading, setIsLoading] = useState(isHome);
@@ -32,26 +32,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className='bg-primary'>
       <body className={inter.className}>
+        <ShowSignInProvider>
         <UserIdProvider>
         <LogedInProvider>
           {isLoading && isHome ?
           (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
           (
             <>
-            <Header 
-            setShowSignIn={setShowSignIn}
-            setShowSignUp={setShowSignUp}
-            />
+            <Header setShowSignUp={setShowSignUp}/>
             {children}
             <SignUpModal 
             visible={showSignUp} setShowModel={setShowSignUp}/>
-            <SignInModal 
-            visible={showSignIn} 
-            setShowModel={setShowSignIn}/>
+            <SignInModal />
             </>
           )}
         </LogedInProvider>
         </UserIdProvider>
+        </ShowSignInProvider>
       </body>
     </html>
   )

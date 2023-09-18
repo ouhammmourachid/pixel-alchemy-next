@@ -9,17 +9,22 @@ import { useState,useRef,useContext } from "react";
 import BASE_URL from "@/constants";
 import Cookies from "js-cookie";
 import { UserId } from "@/contexts/UserIdContext";
+import { ShowSignIn } from "@/contexts/ShowSignInContext";
+import { LogedIn } from "@/contexts/LogedInContext";
 
-export default function Home({isLogedIn}) {
+export default function Home() {
   const [selectedImage, setSelectedImage] = useState(null);
   const {userId,setUserId} = useContext(UserId);
+  const {showSignIn,setShowSignIn} = useContext(ShowSignIn);
+  const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
   const fileInputRef = useRef(null);
   const handleImageClick = () => {
     if(!isLogedIn){
-      //setShowSignIn(true);
+      setShowSignIn(true);
     }
+    console.log(isLogedIn)
     // Trigger a click on the hidden file input element to open the file picker dialog.
-    if (fileInputRef.current) {
+    if (isLogedIn && fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
