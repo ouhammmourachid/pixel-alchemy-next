@@ -20,6 +20,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const [showSignUp,setShowSignUp] =useState(false);
   const [showSignIn,setShowSignIn] =useState(false);
+  const [isLogedIn,setIsLogedIn] =useState(false);
   const pathname = usePathname();
   const isHome = pathname == '/';
   const [isLoading, setIsLoading] = useState(isHome);
@@ -36,10 +37,16 @@ export default function RootLayout({ children }) {
           <>
           <Header 
           setShowSignIn={setShowSignIn}
-          setShowSignUp={setShowSignUp}/>
+          setShowSignUp={setShowSignUp}
+          setIsLogedIn={setIsLogedIn}
+          isLogedIn={isLogedIn}/>
           {children}
-          <SignUpModal visible={showSignUp} setShowModel={setShowSignUp}/>
-          <SignInModal visible={showSignIn} setShowModel={setShowSignIn} />
+          <SignUpModal 
+          visible={showSignUp} setShowModel={setShowSignUp}/>
+          <SignInModal 
+          visible={showSignIn} 
+          setShowModel={setShowSignIn} 
+          setIsLogedIn={setIsLogedIn}/>
           </>
         )}
       </body>

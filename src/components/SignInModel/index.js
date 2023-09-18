@@ -1,8 +1,9 @@
 "use client"
 import React, { useEffect,useRef, useState} from 'react';
 import BASE_URL from '@/constants';
+import Cookies from 'js-cookie';
 
-export default function SignInModal({visible,setShowModel}){
+export default function SignInModal({visible,setShowModel,setIsLogedIn}){
     let signIn = useRef();
     const [formData, setFormData] = useState({
         email: '',
@@ -33,7 +34,9 @@ export default function SignInModal({visible,setShowModel}){
             });
             if (response.ok) {
               const data = await response.json();
-              console.log(data);
+              Cookies.set('jwt',data.jwt);
+              setIsLogedIn(true);
+              setShowModel(false);
             } else {
                 setError('Please check your username and password and try again.');
             }
