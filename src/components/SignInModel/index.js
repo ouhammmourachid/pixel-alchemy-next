@@ -1,8 +1,14 @@
 "use client"
-import React, { useEffect,useRef, useState} from 'react';
+import React, { useEffect,useRef, useState,useContext} from 'react';
 import BASE_URL from '@/constants';
+import Cookies from 'js-cookie';
+import { LogedIn } from '@/contexts/LogedInContext';
+import { ShowSignIn } from '@/contexts/ShowSignInContext';
 
-export default function SignInModal({visible,setShowModel}){
+export default function SignInModal(){
+    const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
+    const {showSignIn,setShowSignIn} = useContext(ShowSignIn);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     let signIn = useRef();
     const [formData, setFormData] = useState({
         email: '',
@@ -22,7 +28,8 @@ export default function SignInModal({visible,setShowModel}){
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        setError('')
+        setShowSuccessMessage(false)
         try {
             const response = await fetch(`${BASE_URL}/api/login`, {
               method: 'POST',
@@ -33,7 +40,10 @@ export default function SignInModal({visible,setShowModel}){
             });
             if (response.ok) {
               const data = await response.json();
-              console.log(data);
+              Cookies.set('jwt',data.jwt);
+              setIsLogedIn(true);
+              setShowSignIn(false);
+              setShowSuccessMessage(true)
             } else {
                 setError('Please check your username and password and try again.');
             }
@@ -44,8 +54,9 @@ export default function SignInModal({visible,setShowModel}){
     useEffect(()=>{
         let handler =(e)=>{
             if(signIn.current && !signIn.current.contains(e.target)){
-                setShowModel(false);
-                //console.log(signIn.current);
+                setShowSignIn(false);
+                setShowSuccessMessage(false);
+                setError('');
             }
         };
         document.addEventListener("mousedown",handler);
@@ -53,7 +64,7 @@ export default function SignInModal({visible,setShowModel}){
             document.addEventListener('mousedown',handler)
         }
     })
-    if(!visible) return null;
+    if(!showSignIn) return null;
     return(
     <div className='fixed inset-0 backdrop-blur-sm flex justify-center items-center'>     
         <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-xl shadow">
@@ -64,6 +75,14 @@ export default function SignInModal({visible,setShowModel}){
                         <strong class="font-bold">Login Failed:</strong>
                         <span class="block sm:inline">{error}</span>
                     {error}
+                    </div>
+                }
+                {showSuccessMessage && 
+                    <div class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                        <svg class="h-6 w-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Welcome back! You have successfully logged in.
                     </div>
                 }
                 <div>
