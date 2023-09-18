@@ -1,9 +1,12 @@
 "use client"
-import React, { useEffect,useRef, useState} from 'react';
+import React, { useEffect,useRef, useState,useContext} from 'react';
 import BASE_URL from '@/constants';
 import Cookies from 'js-cookie';
+import { LogedIn } from '@/contexts/LogedInContext';
 
-export default function SignInModal({visible,setShowModel,setIsLogedIn}){
+export default function SignInModal({visible,setShowModel}){
+    const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
+    
     let signIn = useRef();
     const [formData, setFormData] = useState({
         email: '',

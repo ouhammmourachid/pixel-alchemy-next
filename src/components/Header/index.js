@@ -1,12 +1,16 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import React,{useRef,useState,useEffect} from 'react';
+import React,{useRef,useState,useEffect,useContext} from 'react';
 import Cookies from 'js-cookie';
 import BASE_URL from '@/constants';
 import vector from '/public/vector.svg';
+import { LogedIn } from '@/contexts/LogedInContext';
+import { UserId } from '@/contexts/UserIdContext';
 
-export default function Header({setShowSignIn,setShowSignUp,setIsLogedIn,isLogedIn}){
+export default function Header({setShowSignIn,setShowSignUp}){
+    const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
+    const {userId,setUserId} = useContext(UserId);
     const logedIn = true;
     const [showMenu,setShowMenu] = useState(false);
     const [userData,setUserData] = useState(null);
@@ -41,7 +45,7 @@ export default function Header({setShowSignIn,setShowSignUp,setIsLogedIn,isLoged
           .then((data) => {
             setUserData(data);
             setIsLogedIn(true);
-            console.log(userData);
+            setUserId(data.id);
           })
           .catch((error) => {
             console.error('Error fetching data1:', error);

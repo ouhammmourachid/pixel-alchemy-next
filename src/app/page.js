@@ -5,20 +5,21 @@ import exampleSuperResolution from '/public/example-super-resolution.png';
 import exampleStylization from '/public/images-stylization.png';
 import uploadEqlipseIlustration from '/public/eqlipse-ilus.svg';
 import Link from "next/link";
-import { useState,useRef } from "react";
+import { useState,useRef,useContext } from "react";
 import BASE_URL from "@/constants";
 import Cookies from "js-cookie";
+import { UserId } from "@/contexts/UserIdContext";
 
-export default function Home({isLogedIn,setShowSignIn}) {
+export default function Home({isLogedIn}) {
   const [selectedImage, setSelectedImage] = useState(null);
+  const {userId,setUserId} = useContext(UserId);
   const fileInputRef = useRef(null);
   const handleImageClick = () => {
     if(!isLogedIn){
-      console.log(isLogedIn)
       //setShowSignIn(true);
     }
     // Trigger a click on the hidden file input element to open the file picker dialog.
-    if (isLogedIn && fileInputRef.current) {
+    if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
@@ -33,7 +34,7 @@ export default function Home({isLogedIn,setShowSignIn}) {
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('imagePath', file);
-    formData.append('user',"3");
+    formData.append('user',String(userId));
     try {
       // Send the formData to your endpoint using fetch or a library like axios.
       const response = await fetch(`${BASE_URL}/api/image`, {

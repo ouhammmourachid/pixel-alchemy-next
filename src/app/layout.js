@@ -8,6 +8,8 @@ import SignUpModal from '@/components/SignUpModel'
 import SplashScreen from '@/components/SplashScreen'
 import {usePathname} from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { LogedInProvider } from '@/contexts/LogedInContext'
+import { UserIdProvider } from '@/contexts/UserIdContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +22,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const [showSignUp,setShowSignUp] =useState(false);
   const [showSignIn,setShowSignIn] =useState(false);
-  const [isLogedIn,setIsLogedIn] =useState(false);
   const pathname = usePathname();
   const isHome = pathname == '/';
   const [isLoading, setIsLoading] = useState(isHome);
@@ -31,24 +32,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className='bg-primary'>
       <body className={inter.className}>
-        {isLoading && isHome ?
-        (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
-        (
-          <>
-          <Header 
-          setShowSignIn={setShowSignIn}
-          setShowSignUp={setShowSignUp}
-          setIsLogedIn={setIsLogedIn}
-          isLogedIn={isLogedIn}/>
-          {children}
-          <SignUpModal 
-          visible={showSignUp} setShowModel={setShowSignUp}/>
-          <SignInModal 
-          visible={showSignIn} 
-          setShowModel={setShowSignIn} 
-          setIsLogedIn={setIsLogedIn}/>
-          </>
-        )}
+        <UserIdProvider>
+        <LogedInProvider>
+          {isLoading && isHome ?
+          (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
+          (
+            <>
+            <Header 
+            setShowSignIn={setShowSignIn}
+            setShowSignUp={setShowSignUp}
+            />
+            {children}
+            <SignUpModal 
+            visible={showSignUp} setShowModel={setShowSignUp}/>
+            <SignInModal 
+            visible={showSignIn} 
+            setShowModel={setShowSignIn}/>
+            </>
+          )}
+        </LogedInProvider>
+        </UserIdProvider>
       </body>
     </html>
   )
