@@ -31,9 +31,12 @@ export default function Post() {
             console.error('Error fetching data1:', error);
           });
     }
+    
     return(
         <div>
-            <PostedImage />
+            <PostedImage 
+            postId={postId}
+            numberComments={comments.length}/>
             <PostComment 
             postId={postId}
             forceRender={forceRender}
