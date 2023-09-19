@@ -24,6 +24,7 @@ export default function PostComment({postId, forceRender, setForceRender}) {
             // Comment posted successfully, you can perform any additional actions here
             console.log("Comment posted successfully!");
             setForceRender(!forceRender);
+            document.querySelector(".post-comment textarea").value = '';
           } else {
             // Handle errors here
             console.error("Failed to post comment");

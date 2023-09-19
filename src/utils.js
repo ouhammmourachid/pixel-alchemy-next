@@ -1,4 +1,6 @@
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow} from 'date-fns';
+import parseISO from "date-fns/parseISO";
+import format from "date-fns/format";
 
 export default function formatNumber(number) {
     if (number < 1000) {
@@ -10,7 +12,6 @@ export default function formatNumber(number) {
     }
 }
 
-
 export function formatDateToRelative(dateString) {
   // Parse the input date string into a JavaScript Date object
   const date = new Date(dateString);
@@ -18,3 +19,12 @@ export function formatDateToRelative(dateString) {
   // Format the date relative to the current date
   return formatDistanceToNow(date, { addSuffix: true });
 }
+
+export function formatDateFns(dateString) {
+    // Parse the ISO date string to a JavaScript Date object
+    const date = parseISO(dateString);
+
+    // Format the date using the desired format string
+    const formattedDate = format(date, "dd MMM yyyy");
+    return formattedDate;
+  }

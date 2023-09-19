@@ -14,12 +14,14 @@ import Cookies from "js-cookie";
 import formatNumber from "@/utils";
 import { UserId } from "@/contexts/UserIdContext";
 import redHeart from '/public/red-heart.svg';
-
+import parseISO from "date-fns/parseISO";
+import format from "date-fns/format";
 
 export default function PostedImage({postId,numberComments}) {
     const [postData, setPostData] = useState(null);
     const [userName, setUserName] = useState('');
     const [isLiked, setIsLiked] = useState(false);
+    const [isPrivate, setIsPrivate] = useState(null);
     const {userId,setUserId} = useContext(UserId);
     const [numberLikes, setNumberLikes] = useState('');
     const handleClickDownload = async()=>{
@@ -45,6 +47,14 @@ export default function PostedImage({postId,numberComments}) {
         getIsLiked();
         getNumberLike();
     },[])
+    function formatDateFns(dateString) {
+      // Parse the ISO date string to a JavaScript Date object
+      const date = parseISO(dateString);
+  
+      // Format the date using the desired format string
+      const formattedDate = format(date, "dd MMM yyyy");
+      return formattedDate;
+    }
     const getPostedImage = async ()=>{
         await fetch(`${BASE_URL}/api/image/info/${postId}`,{
             method: 'GET',
@@ -56,13 +66,29 @@ export default function PostedImage({postId,numberComments}) {
           .then((response) => response.json())
           .then((data) => {
             setPostData(data)
-            console.log(data);
             getUserName(data.user);
+            setIsPrivate(data.isPrivate);
           })
           .catch((error) => {
             console.error('Error fetching data1:', error);
           });
     }
+    const changeVisibilty = async ()=>{
+      await fetch(`${BASE_URL}/api/change-visibilty/image/${postId}`,{
+          method: 'GET',
+          credentials: 'same-origin',
+          headers: {
+            'Authorization': `${Cookies.get('jwt')}`,
+          },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setIsPrivate(!isPrivate);
+        })
+        .catch((error) => {
+          console.error('Error fetching data1:', error);
+        });
+  }
     const getUserName = async (userId)=>{
         await fetch(`${BASE_URL}/api/user/${userId}`,{
             method: 'GET',
@@ -160,6 +186,11 @@ export default function PostedImage({postId,numberComments}) {
             likeImage();
         }
     }
+    const handleLockOrUnlock = ()=>{
+      if (userId == postData.user){
+        changeVisibilty();
+      }
+    }
     return (
         <div className="posted-image relative">
             <Image 
@@ -171,8 +202,8 @@ export default function PostedImage({postId,numberComments}) {
             <div className="mt-16">
                 <div className="flex justify-between mr-12">
                     <h1 className="font-semibold">@_{userName}</h1>
-                    <button>
-                        <Image src={postData && postData.isPrivate? lockClosed:lockOpened} alt="lock-closed-icon" />
+                    <button onClick={handleLockOrUnlock}>
+                        <Image src={isPrivate ? lockClosed:lockOpened} alt="lock-closed-icon" />
                     </button>
                 </div>
                 <div className="flex justify-between my-16 mr-12">
@@ -206,7 +237,7 @@ export default function PostedImage({postId,numberComments}) {
                     alt="comment-icon"
                     className="mx-1"/>
                     <p>{numberComments}</p>
-                    <p className="ml-6">2023-08-29</p>
+                    <p className="ml-6">{postData && formatDateFns(postData.createdAt)}</p>
                 </div>
             </div>
         </div>
