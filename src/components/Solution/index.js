@@ -14,7 +14,7 @@ export default function Soluion({data}) {
             height={100}
             className="w-32 rounded-lg h-20 mr-6"/>
             <p className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
-            {data && data.description ? data.description : ''}
+            {data && data.description ? data.description : 'no description is availible'}
             </p>
             <div className="flex flex-row mx-12">
                 <button className="pr-3">
