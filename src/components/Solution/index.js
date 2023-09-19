@@ -2,17 +2,19 @@ import Image from "next/image";
 import downloadIco from '/public/download.svg';
 import scaleUpIco from '/public/scaleup.svg';
 import stylizationIco from '/public/stylization.svg'
+import BASE_URL from "@/constants";
 
-export default function Soluion({src}) {
+export default function Soluion({data}) {
     return (
         <div className="solution">
             <Image 
-            src={src} 
-            alt="image-solution" 
+            src={`${BASE_URL}/api/image/${data.id}`} 
+            alt="image-solution"
+            width={100}
+            height={100}
             className="w-32 rounded-lg h-20 mr-6"/>
-            <p className="w-1/2 text-left">
-                Drag and drop anywhere Drag and drop anywhere Drag and drop
-                Drag and drop anywhere Drag and drop anywhere Drag and drop
+            <p className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
+            {data && data.description ? data.description : ''}
             </p>
             <div className="flex flex-row mx-12">
                 <button className="pr-3">
