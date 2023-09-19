@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import { UserId } from "@/contexts/UserIdContext";
 
 export default function Soluions() {
-    const [data, setData] = useState([])
+    const [solutionsdata, setSolutionsData] = useState([])
     const [selectedImage, setSelectedImage] = useState(null);
     const {userId,setUserId} = useContext(UserId);
     const fileInputRef = useRef(null);
@@ -66,7 +66,7 @@ export default function Soluions() {
         })
           .then((response) => response.json())
           .then((data) => {
-            setData(data)
+            setSolutionsData(data)
             console.log(data);
           })
           .catch((error) => {
@@ -76,8 +76,8 @@ export default function Soluions() {
     
     return (
         <div>
-            {data.map((image)=>(
-                <Soluion key={image.id} data={image}/>
+            {solutionsdata.map((image)=>(
+                <Soluion key={image.id} solutionData={image}/>
             ))
             }
             <div className="flex flex-row mx-52 relative">
