@@ -44,7 +44,7 @@
 }
 
 .solution {
-    @apply bg-secondry text-white font-mono mb-6 mx-52 py-3 pl-6 rounded-xl flex justify-between;
+    @apply bg-secondry text-white font-mono mb-6 mx-52 py-3 pl-6 rounded-xl flex justify-between ;
 }
 
 .posted-image {

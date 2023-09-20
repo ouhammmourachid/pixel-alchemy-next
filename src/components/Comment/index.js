@@ -1,19 +1,40 @@
-export default function Comment() {
+import BASE_URL from "@/constants";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import {formatDateToRelative} from '@/utils';
+
+export default function Comment({commentData}) {
+    const [userName, setUserName] = useState('');
+    useEffect(()=>{
+        getUserName();
+    },[])
+    const getUserName = async ()=>{
+        await fetch(`${BASE_URL}/api/user/${commentData.user}`,{
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+              'Authorization': `${Cookies.get('jwt')}`,
+            },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setUserName(data.username);
+          })
+          .catch((error) => {
+            console.error('Error fetching data1:', error);
+          });
+    }
     return (
         <div className="comment">
             <div className="flex flex-row">
-                <h1 className="font-semibold mb-6">@_rachid_ouhamm</h1>
-                <p className="ml-8">2023-08-29</p>
+                <h1 className="font-semibold mb-6 ">@_{userName}</h1>
+                <p className="ml-8 mt-3 text-purple text-xs text-end">
+                    {formatDateToRelative(commentData.createdAt)}
+                </p>
             </div>
             
             <p className="ml-12">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Nullam eget sapien non libero efficitur vehicula. Sed auctor, 
-                justo quis congue facilisis, odio justo convallis eros, nec 
-                consequat felis erat id urna. Vestibulum ante ipsum primis in faucibus
-                orci luctus et ultrices posuere cubilia curae; Mauris at ex ut lorem tristique
-                consectetur. Fusce bibendum, quam id blandit consequat, tellus enim lacinia neque, 
-                sed interdum odio nisi nec elit. Vivamus sed mi in ex suscipit feugiat.
+                {commentData.text}
             </p>
             
         </div>
