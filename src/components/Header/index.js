@@ -50,7 +50,8 @@ export default function Header({setShowSignUp}){
             setUserId(data.id);
           })
           .catch((error) => {
-            console.error('Error fetching data1:', error);
+            console.error('Error fetching the user Info ', error);
+            setIsLogedIn(false);
           });
     }
     return(
