@@ -27,8 +27,8 @@ export default function Comment({commentData}) {
     return (
         <div className="comment">
             <div className="flex flex-row">
-                <h1 className="font-semibold mb-6">@_{userName}</h1>
-                <p className="ml-8">
+                <h1 className="font-semibold mb-6 ">@_{userName}</h1>
+                <p className="ml-8 mt-3 text-purple text-xs text-end">
                     {formatDateToRelative(commentData.createdAt)}
                 </p>
             </div>

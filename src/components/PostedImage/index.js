@@ -24,6 +24,8 @@ export default function PostedImage({postId,numberComments}) {
     const [isPrivate, setIsPrivate] = useState(null);
     const {userId,setUserId} = useContext(UserId);
     const [numberLikes, setNumberLikes] = useState('');
+    const [description, setDescription] = useState(null);
+    const [createdAt, setCreatedAt] = useState(null);
     const handleClickDownload = async()=>{
         try {
             const response = await fetch(`${BASE_URL}/api/download/image/${postId}`); 
@@ -68,10 +70,31 @@ export default function PostedImage({postId,numberComments}) {
             setPostData(data)
             getUserName(data.user);
             setIsPrivate(data.isPrivate);
+            setDescription(data.description);
+            setCreatedAt(data.createdAt);
           })
           .catch((error) => {
             console.error('Error fetching data1:', error);
           });
+    }
+    const updateImageDescription = async ()=>{
+      postData.description = description;
+      await fetch(`${BASE_URL}/api/image/info/${postId}`,{
+          method: 'PUT',
+          credentials: 'same-origin',
+          headers: {
+            'Authorization': `${Cookies.get('jwt')}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching data1:', error);
+        });
     }
     const changeVisibilty = async ()=>{
       await fetch(`${BASE_URL}/api/change-visibilty/image/${postId}`,{
@@ -88,7 +111,7 @@ export default function PostedImage({postId,numberComments}) {
         .catch((error) => {
           console.error('Error fetching data1:', error);
         });
-  }
+    }
     const getUserName = async (userId)=>{
         await fetch(`${BASE_URL}/api/user/${userId}`,{
             method: 'GET',
@@ -191,6 +214,13 @@ export default function PostedImage({postId,numberComments}) {
         changeVisibilty();
       }
     }
+    const handleTextareaChange = (event) => {
+      // Update the state variable with the new value of the textarea
+      setDescription(event.target.value);
+    };
+    const handleClickEdit = () => {
+      updateImageDescription()
+    }
     return (
         <div className="posted-image relative">
             <Image 
@@ -207,8 +237,18 @@ export default function PostedImage({postId,numberComments}) {
                     </button>
                 </div>
                 <div className="flex justify-between my-16 mr-12">
-                    <p>{postData && postData.description}</p>
-                    <Image src={editIco} alt="edit-ico" />
+                    {postData && userId == postData.user ?
+                      <textarea 
+                      className="bg-secondry w-full h-52 border-none focus:outline-none p-3 text-white border-0 focus:ring-0 resize-none" 
+                      placeholder="desciption ..." 
+                      value={description} 
+                      onChange={handleTextareaChange}/>
+                    :
+                      <p>{postData && postData.description}</p>
+                    }
+                    <button onClick={handleClickEdit}>
+                      <Image src={editIco} alt="edit-ico" />
+                    </button>
                 </div>
                 <div className="flex justify-between border-t-2 mx-40 pb-16 pt-6">
                     <button className="">
@@ -237,7 +277,7 @@ export default function PostedImage({postId,numberComments}) {
                     alt="comment-icon"
                     className="mx-1"/>
                     <p>{numberComments}</p>
-                    <p className="ml-6">{postData && formatDateFns(postData.createdAt)}</p>
+                    <p className="ml-6">{createdAt && formatDateFns(createdAt)}</p>
                 </div>
             </div>
         </div>

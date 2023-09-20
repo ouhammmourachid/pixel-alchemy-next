@@ -41,7 +41,7 @@ export default function Post() {
             postId={postId}
             forceRender={forceRender}
             setForceRender={setForceRender}/>
-            {comments.map((comment)=>(
+            {comments && comments.map((comment)=>(
                 <Comment key={comment.id} commentData={comment}/>
                 ))}
         </div>

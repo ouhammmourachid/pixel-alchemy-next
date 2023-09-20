@@ -4,6 +4,7 @@ import scaleUpIco from '/public/scaleup.svg';
 import stylizationIco from '/public/stylization.svg'
 import BASE_URL from "@/constants";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 export default function Soluion({solutionData}) {
     const handleClickDownload = async()=>{
@@ -25,16 +26,18 @@ export default function Soluion({solutionData}) {
         }
     }
     return (
-        <div className="solution">
+        <div className="solution" >
             <Image 
-            src={`${BASE_URL}/api/image/${solutionData.id}`} 
-            alt="image-solution"
-            width={100}
-            height={100}
-            className="w-32 rounded-lg h-20 mr-6"/>
-            <p className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
-            {solutionData && solutionData.description ? solutionData.description : 'no description is availible'}
-            </p>
+                src={`${BASE_URL}/api/image/${solutionData.id}`} 
+                alt="image-solution"
+                width={100}
+                height={100}
+                className="w-32 rounded-lg h-20 mr-6"/>
+            <Link href={`/post/${solutionData.id}`} className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
+                <p >
+                    {solutionData && solutionData.description ? solutionData.description : 'no description is availible'}
+                </p>
+            </Link>
             <div className="flex flex-row mx-12">
                 <button className="pr-3">
                     <Image src={stylizationIco} alt="stylization-icon" />
