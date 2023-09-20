@@ -9,12 +9,11 @@ import { LogedIn } from '@/contexts/LogedInContext';
 import { UserId } from '@/contexts/UserIdContext';
 import { ShowSignIn } from '@/contexts/ShowSignInContext';
 
-export default function Header({setShowSignUp}){
+
+export default function Header({setShowSignUp,showMenu,setShowMenu}){
     const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
     const {userId,setUserId} = useContext(UserId);
     const {showSignIn,setShowSignIn} = useContext(ShowSignIn);
-    const logedIn = true;
-    const [showMenu,setShowMenu] = useState(false);
     const [userData,setUserData] = useState(null);
     let menuRef = useRef();
 
@@ -72,7 +71,12 @@ export default function Header({setShowSignUp}){
             {isLogedIn && userData?
             <div className='border-l-2 border-white flex flex-row mt-1 pl-3'>
                 <p className='text-white font-mono font-semibold text-base mr-2'>{userData.name}</p>
-                <Image src={vector} alt='image-vector' width={15}/>
+                <Image 
+                    src={vector} 
+                    alt='image-vector' 
+                    width={15} 
+                    onClick={()=>setShowMenu(!showMenu)}
+                    />
             </div>
             :
             <div className='flex items-center'>
@@ -81,7 +85,6 @@ export default function Header({setShowSignUp}){
                 <button className='button-header bg-secondry border border-purple' onClick={()=>setShowSignIn(true)}>Login</button>
             </div>
             }
-            
         </div>
     </nav>
     )

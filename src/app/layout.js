@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { LogedInProvider } from '@/contexts/LogedInContext'
 import { UserIdProvider } from '@/contexts/UserIdContext'
 import { ShowSignInProvider } from '@/contexts/ShowSignInContext'
+import DropDown from '@/components/DropDown'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const [showSignUp,setShowSignUp] =useState(false);
+  const [showMenu,setShowMenu] = useState(false);
   const pathname = usePathname();
   const isHome = pathname == '/';
   const [isLoading, setIsLoading] = useState(isHome);
@@ -39,11 +41,12 @@ export default function RootLayout({ children }) {
           (<SplashScreen finshLoading={()=>setIsLoading(false)}/>):
           (
             <>
-            <Header setShowSignUp={setShowSignUp}/>
+            <Header setShowSignUp={setShowSignUp} showMenu={showMenu} setShowMenu={setShowMenu}/>
             {children}
             <SignUpModal 
             visible={showSignUp} setShowModel={setShowSignUp}/>
             <SignInModal />
+            <DropDown showMenu={showMenu} setShowMenu={setShowMenu}/>
             </>
           )}
         </LogedInProvider>
