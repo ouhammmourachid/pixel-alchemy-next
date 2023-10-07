@@ -1,21 +1,29 @@
 "use client"
-import Soluion from "@/components/Solution";
-import imageSwan from '/public/swan.jpg';
-import cafe from '/public/cafe.jpg';
+import Solution from "@/components/Solution";
 import eqlipseIlusion from '/public/eqlipse-ilus.svg';
 import Image from "next/image";
 import { useEffect, useState, useContext, useRef} from "react";
 import BASE_URL from "@/constants";
 import Cookies from "js-cookie";
 import { UserId } from "@/contexts/UserIdContext";
+import { useRouter } from "next/navigation";
+import { LogedIn } from "@/contexts/LogedInContext";
+import { ShowSignIn } from "@/contexts/ShowSignInContext";
 
 export default function Soluions() {
     const [solutionsdata, setSolutionsData] = useState([])
     const [selectedImage, setSelectedImage] = useState(null);
     const {userId,setUserId} = useContext(UserId);
     const fileInputRef = useRef(null);
+    const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
+    const {showSignIn, setShowSignIn} = useContext(ShowSignIn);
+    const router = useRouter();
     useEffect(() => {
-        getUserImages()
+      if(!isLogedIn){
+        setShowSignIn(true);
+        router.push('/')
+      }
+      getUserImages()
     },[]);
     const handleImageClick = () => {
         // Trigger a click on the hidden file input element to open the file picker dialog.
@@ -77,7 +85,7 @@ export default function Soluions() {
     return (
         <div>
             {solutionsdata.map((image)=>(
-                <Soluion key={image.id} solutionData={image}/>
+                <Solution key={image.id} solutionData={image}/>
             ))
             }
             <div className="flex flex-row mx-52 relative">

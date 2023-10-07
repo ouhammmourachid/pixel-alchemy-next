@@ -52,6 +52,7 @@ export default function SignInModal(){
         }
     };
     useEffect(()=>{
+        setShowSuccessMessage(false);
         let handler =(e)=>{
             if(signIn.current && !signIn.current.contains(e.target)){
                 setShowSignIn(false);
@@ -79,8 +80,17 @@ export default function SignInModal(){
                 }
                 {showSuccessMessage && 
                     <div class="bg-blue-500 text-white px-4 py-2 rounded-md">
-                        <svg class="h-6 w-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <svg class="h-6 w-6 inline-block mr-2" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24" 
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round" 
+                                stroke-width="2" 
+                                d="M5 13l4 4L19 7">
+                            </path>
                         </svg>
                         Welcome back! You have successfully logged in.
                     </div>

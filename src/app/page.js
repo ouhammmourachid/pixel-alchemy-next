@@ -81,7 +81,7 @@ export default function Home() {
           <li className="py-1">Make your photos look their best in one click</li>
           <li className="py-1">Transform Your Photos into Art: Explore the Magic of Neural Style Transfer!</li>
         </ul>
-        <Link href="/solutions" className="bg-purple rounded-full py-2 px-3 hover:bg-secondry ml-20">Start free</Link>
+        <Link href="/solutions" className="bg-purple rounded-full py-2 px-3 hover:bg-secondry ml-20" >Get started</Link>
         <p className="absolute right-80">Drag and drop anywhere <span className="text-purple">to upload </span></p>
       </section>
       <section key="section-2" className="section-2">

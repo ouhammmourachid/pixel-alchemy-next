@@ -3,10 +3,10 @@ import downloadIco from '/public/download.svg';
 import scaleUpIco from '/public/scaleup.svg';
 import stylizationIco from '/public/stylization.svg'
 import BASE_URL from "@/constants";
-import Cookies from "js-cookie";
 import Link from "next/link";
 
-export default function Soluion({solutionData}) {
+
+export default function Solution({solutionData}) {
     const handleClickDownload = async()=>{
         try {
             const response = await fetch(`${BASE_URL}/api/download/image/${solutionData.id}`); // Replace '1' with the actual image ID
