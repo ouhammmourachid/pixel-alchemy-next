@@ -2,9 +2,12 @@ import Link from "next/link"
 import { useContext, useEffect,useRef } from "react";
 import { LogedIn } from "@/contexts/LogedInContext";
 import Cookies from "js-cookie";
+import { ShowMenu } from "@/contexts/ShowMenuContext";
 
-export default function DropDown({showMenu,setShowMenu}){
+export default function DropDown(){
     const {isLogedIn, setIsLogedIn} = useContext(LogedIn);
+    const {showMenu,setShowMenu} = useContext(ShowMenu);
+
     let menu = useRef();
     useEffect(()=>{
         let handler =(e)=>{

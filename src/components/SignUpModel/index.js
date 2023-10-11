@@ -1,8 +1,10 @@
 "use client"
 import React, { useEffect,useRef, useState} from 'react';
 import BASE_URL from '@/constants';
+import { ShowSignUp } from '@/contexts/ShowSignUpContext';
+import { useContext } from 'react';
 
-export default function SignUpModal({visible,setShowModel}){
+export default function SignUpModal(){
     let signUp = useRef();
     const [formData, setFormData] = useState({
         email: '',
@@ -11,6 +13,7 @@ export default function SignUpModal({visible,setShowModel}){
         name:''
     });
     const [error, setError] = useState('');
+    const {visible,setShowModel} = useContext(ShowSignUp);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     // Handle form input changes
     const handleInputChange = (e) => {

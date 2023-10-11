@@ -8,12 +8,16 @@ import vector from '/public/vector.svg';
 import { LogedIn } from '@/contexts/LogedInContext';
 import { UserId } from '@/contexts/UserIdContext';
 import { ShowSignIn } from '@/contexts/ShowSignInContext';
+import { ShowSignUp } from '@/contexts/ShowSignUpContext';
+import { ShowMenu } from '@/contexts/ShowMenuContext';
 
 
-export default function Header({setShowSignUp,showMenu,setShowMenu}){
+export default function Header(){
     const {isLogedIn,setIsLogedIn} = useContext(LogedIn);
     const {userId,setUserId} = useContext(UserId);
     const {showSignIn,setShowSignIn} = useContext(ShowSignIn);
+    const {showSignUp,setShowSignUp} = useContext(ShowSignUp);
+    const {showMenu,setShowMenu} = useContext(ShowMenu);
     const [userData,setUserData] = useState(null);
     let menuRef = useRef();
 
