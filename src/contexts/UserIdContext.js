@@ -1,4 +1,5 @@
-import { createContext,useContext,useState } from "react";
+"use client"
+import { createContext,useState } from "react";
 
 export const UserId = createContext();
 
