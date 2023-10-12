@@ -5,7 +5,7 @@ import React,{useRef,useState,useEffect,useContext} from 'react';
 import Cookies from 'js-cookie';
 import BASE_URL from '@/constants';
 import vector from '/public/vector.svg';
-import logoLight from '/public/logo-light.svg';
+import logoDark from '/public/logo-dark.svg';
 import { LogedIn } from '@/contexts/LogedInContext';
 import { UserId } from '@/contexts/UserIdContext';
 import { ShowSignIn } from '@/contexts/ShowSignInContext';
@@ -62,7 +62,7 @@ export default function Header(){
     <nav className='nav'>
         <Link href='/'>
             <Image 
-            src={logoLight}
+            src={logoDark}
             alt='pixel-alchemy-logo' 
             width={300} 
             height={219}
