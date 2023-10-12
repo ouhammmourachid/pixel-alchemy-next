@@ -8,7 +8,7 @@ Welcome to my Next.js web application! This repository contains the source code 
 
 You can check out the live demo of this project on GitHub Pages:
 
-[Live Demo](https://ouhammmourachid.github.io/pixel-alchemy-next/)
+[![Live Demo](/public/favicon.ico)](https://ouhammmourachid.github.io/pixel-alchemy-next/)
 
 ## Figma Design
 
@@ -48,6 +48,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or want to get in touch, you can reach out to me at [your@email.com].
+If you have any questions or want to get in touch, you can reach out to me at [rachidouhammou21@gmail.com].
 
 Happy coding!
