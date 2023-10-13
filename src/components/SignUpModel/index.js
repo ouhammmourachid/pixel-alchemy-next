@@ -1,8 +1,7 @@
 "use client"
-import React, { useEffect,useRef, useState} from 'react';
+import React, { useEffect,useRef, useState,useContext} from 'react';
 import BASE_URL from '@/constants';
 import { ShowSignUp } from '@/contexts/ShowSignUpContext';
-import { useContext } from 'react';
 
 export default function SignUpModal(){
     let signUp = useRef();
@@ -13,7 +12,7 @@ export default function SignUpModal(){
         name:''
     });
     const [error, setError] = useState('');
-    const {visible,setShowModel} = useContext(ShowSignUp);
+    const {showSignUp,setShowSignUp} = useContext(ShowSignUp);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     // Handle form input changes
     const handleInputChange = (e) => {
@@ -60,7 +59,7 @@ export default function SignUpModal(){
     useEffect(()=>{
         let handler =(e)=>{
             if(signUp.current &&!signUp.current.contains(e.target)){
-                setShowModel(false);
+                setShowSignUp(false);
                 setError('');
                 setShowSuccessMessage(false)
             }
@@ -70,7 +69,7 @@ export default function SignUpModal(){
             document.addEventListener('mousedown',handler)
         }
     },[])
-    if(!visible) return null;
+    if(!showSignUp) return null;
     return(
     <div className='fixed inset-0 backdrop-blur-sm flex justify-center items-center'>     
         <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-xl shadow ">
