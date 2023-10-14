@@ -33,7 +33,7 @@ export default function Solution({solutionData}) {
                 width={100}
                 height={100}
                 className="w-32 rounded-lg h-20 mr-6"/>
-            <Link href={`/post/${solutionData.id}`} className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
+            <Link href={`/post/${solutionData.id}/`} className="w-1/2 text-left line-clamp-3 max-h-[4.3em]">
                 <p >
                     {solutionData && solutionData.description ? solutionData.description : 'no description is availible'}
                 </p>

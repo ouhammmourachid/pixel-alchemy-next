@@ -138,7 +138,7 @@ export default function Post({postData}) {
     }
     return (
         <div className="post">
-            <Link href={`/post/${postData.id}`}>
+            <Link href={`/post/${postData.id}/`}>
                 <Image 
                 src={`${BASE_URL}/api/image/${postData.id}`} 
                 alt="image-post"
