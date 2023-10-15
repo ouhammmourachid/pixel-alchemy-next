@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    assetPrefix: 'pixel-alchemy-next',
+    assetPrefix: 'http://ouhammmourachid.github.io/pixel-alchemy-next/',
     basePath: '/pixel-alchemy-next',
     output: 'export',
     images: {
